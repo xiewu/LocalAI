@@ -15,7 +15,7 @@ ARG TARGETARCH
 ARG TARGETVARIANT
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV EXTERNAL_GRPC_BACKENDS="coqui:/build/backend/python/coqui/run.sh,transformers:/build/backend/python/transformers/run.sh,rerankers:/build/backend/python/rerankers/run.sh,autogptq:/build/backend/python/autogptq/run.sh,bark:/build/backend/python/bark/run.sh,diffusers:/build/backend/python/diffusers/run.sh,openvoice:/build/backend/python/openvoice/run.sh,kokoro:/build/backend/python/kokoro/run.sh,vllm:/build/backend/python/vllm/run.sh,mamba:/build/backend/python/mamba/run.sh,exllama2:/build/backend/python/exllama2/run.sh,parler-tts:/build/backend/python/parler-tts/run.sh"
+ENV EXTERNAL_GRPC_BACKENDS="coqui:/build/backend/python/coqui/run.sh,transformers:/build/backend/python/transformers/run.sh,rerankers:/build/backend/python/rerankers/run.sh,autogptq:/build/backend/python/autogptq/run.sh,bark:/build/backend/python/bark/run.sh,diffusers:/build/backend/python/diffusers/run.sh,openvoice:/build/backend/python/openvoice/run.sh,kokoro:/build/backend/python/kokoro/run.sh,vllm:/build/backend/python/vllm/run.sh,exllama2:/build/backend/python/exllama2/run.sh,parler-tts:/build/backend/python/parler-tts/run.sh"
 
 
 RUN apt-get update && \
@@ -442,9 +442,6 @@ RUN if [[ ( "${EXTRA_BACKENDS}" =~ "vllm" || -z "${EXTRA_BACKENDS}" ) && "$IMAGE
     ; fi && \
     if [[ ( "${EXTRA_BACKENDS}" =~ "rerankers" || -z "${EXTRA_BACKENDS}" ) && "$IMAGE_TYPE" == "extras" ]]; then \
         make -C backend/python/rerankers \
-    ; fi && \
-    if [[ ( "${EXTRA_BACKENDS}" =~ "mamba" || -z "${EXTRA_BACKENDS}" ) && "$IMAGE_TYPE" == "extras" ]]; then \
-        make -C backend/python/mamba \
     ; fi
 
 # Make sure the models directory exists
